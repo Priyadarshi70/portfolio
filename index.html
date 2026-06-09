@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Priyadarshi Gupta — Data Engineer</title>
+<meta name="description" content="Aspiring Data Engineer | Databricks Certified | PySpark, Snowflake, AWS, GCP"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root{
+  --bg:#050810;
+  --bg2:#080d1a;
+  --surface:rgba(255,255,255,0.04);
+  --border:rgba(255,255,255,0.08);
+  --accent:#00d4ff;
+  --accent2:#7c3aed;
+  --accent3:#06ffa5;
+  --text:#e8eaf0;
+  --muted:#7a8399;
+  --gold:#f59e0b;
+  --font-display:'Syne',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --font-serif:'Instrument Serif',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--accent) var(--bg)}
+body{background:var(--bg);color:var(--text);font-family:var(--font-mono);overflow-x:hidden;line-height:1.7}
+
+/* SCROLL PROGRESS */
+#progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));z-index:9999;width:0%;transition:width 0.1s}
+
+/* NAVBAR */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(5,8,16,0.85);border-bottom:1px solid var(--border);transition:all 0.3s}
+.nav-logo{font-family:var(--font-display);font-size:1.2rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--accent);transition:width 0.3s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-badge{background:linear-gradient(135deg,var(--accent3),#00c48a);color:#000;font-size:0.6rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:20px;letter-spacing:0.05em}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);transition:all 0.3s}
+
+/* CANVAS */
+#hero-canvas{position:absolute;inset:0;z-index:0;opacity:0.6}
+
+/* SECTIONS */
+section{position:relative;padding:6rem 2rem}
+.container{max-width:1100px;margin:0 auto}
+.section-label{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem}
+.section-title{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);font-weight:800;line-height:1.1;margin-bottom:1rem}
+.gradient-text{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.gradient-text2{background:linear-gradient(135deg,var(--accent3),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* GLASS CARD */
+.glass{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:16px;backdrop-filter:blur(10px);transition:all 0.4s}
+.glass:hover{border-color:rgba(0,212,255,0.3);background:rgba(0,212,255,0.04);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,212,255,0.08)}
+
+/* ===== HERO ===== */
+#hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero-content{position:relative;z-index:1;max-width:800px}
+.hero-tag{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);border-radius:30px;padding:0.4rem 1rem;font-size:0.75rem;color:var(--accent);margin-bottom:2rem;animation:fadeUp 0.6s ease both}
+.hero-tag .dot{width:8px;height:8px;background:var(--accent3);border-radius:50%;animation:pulse 2s infinite}
+.hero-name{font-family:var(--font-display);font-size:clamp(3rem,8vw,6rem);font-weight:800;line-height:1;margin-bottom:0.5rem;animation:fadeUp 0.7s 0.1s ease both}
+.hero-title{font-family:var(--font-serif);font-style:italic;font-size:clamp(1.1rem,2.5vw,1.5rem);color:var(--muted);margin-bottom:1.5rem;animation:fadeUp 0.7s 0.2s ease both}
+.hero-bio{font-size:0.9rem;color:var(--muted);max-width:580px;line-height:1.8;margin-bottom:2.5rem;animation:fadeUp 0.7s 0.3s ease both}
+.hero-btns{display:flex;flex-wrap:wrap;gap:1rem;animation:fadeUp 0.7s 0.4s ease both}
+.btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.7rem 1.6rem;border-radius:8px;font-family:var(--font-mono);font-size:0.8rem;font-weight:500;text-decoration:none;transition:all 0.3s;letter-spacing:0.05em;cursor:pointer;border:none}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;font-weight:700}
+.btn-primary:hover{opacity:0.85;transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,212,255,0.4)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:var(--muted);font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;animation:fadeUp 1s 0.8s ease both}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--accent),transparent);animation:scrollAnim 2s infinite}
+.hero-stats{display:flex;gap:2rem;margin-top:3rem;animation:fadeUp 0.7s 0.5s ease both;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{font-family:var(--font-display);font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:0.65rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+
+/* ===== OPEN TO WORK BANNER ===== */
+.otw-banner{background:linear-gradient(135deg,rgba(0,212,255,0.15),rgba(124,58,237,0.15));border:1px solid rgba(0,212,255,0.3);border-radius:12px;padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;margin-bottom:4rem;animation:fadeUp 0.7s 0.6s ease both}
+.otw-dot{width:10px;height:10px;background:var(--accent3);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
+.otw-text{font-size:0.85rem}
+.otw-text strong{color:var(--accent3)}
+
+/* ===== ABOUT ===== */
+#about .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.about-text p{color:var(--muted);line-height:1.9;margin-bottom:1rem;font-size:0.9rem}
+.edu-timeline{display:flex;flex-direction:column;gap:1.5rem}
+.edu-card{padding:1.5rem;position:relative;overflow:hidden}
+.edu-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--accent),var(--accent2))}
+.edu-year{font-size:0.7rem;color:var(--accent);letter-spacing:0.1em;margin-bottom:0.3rem}
+.edu-degree{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:0.2rem}
+.edu-school{font-size:0.8rem;color:var(--muted)}
+
+/* ===== SKILLS ===== */
+#skills{background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%)}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;margin-top:3rem}
+.skill-category{padding:1.5rem}
+.skill-cat-title{font-family:var(--font-display);font-size:0.85rem;font-weight:700;color:var(--accent);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.5rem;text-transform:uppercase;letter-spacing:0.1em}
+.skill-cat-icon{width:28px;height:28px;background:rgba(0,212,255,0.1);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.8rem}
+.skill-item{margin-bottom:0.9rem}
+.skill-row{display:flex;justify-content:space-between;margin-bottom:0.3rem;font-size:0.78rem}
+.skill-name{color:var(--text)}
+.skill-pct{color:var(--muted)}
+.skill-bar{height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
+.skill-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%;transition:width 1.5s cubic-bezier(0.4,0,0.2,1)}
+
+/* ===== EXPERIENCE ===== */
+.exp-card{padding:2rem;position:relative;overflow:hidden}
+.exp-card::after{content:'';position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(0,212,255,0.08),transparent 70%);pointer-events:none}
+.exp-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem}
+.exp-role{font-family:var(--font-display);font-size:1.4rem;font-weight:800}
+.exp-company{color:var(--accent);font-size:0.9rem;margin-top:0.2rem}
+.exp-meta{text-align:right}
+.exp-duration{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.2);border-radius:20px;padding:0.3rem 0.8rem;font-size:0.7rem;color:var(--accent);display:inline-block;margin-bottom:0.3rem}
+.exp-location{font-size:0.75rem;color:var(--muted)}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:0.8rem}
+.exp-bullets li{display:flex;gap:0.8rem;font-size:0.85rem;color:var(--muted);line-height:1.6}
+.exp-bullets li::before{content:'▸';color:var(--accent);flex-shrink:0;margin-top:0.1rem}
+.exp-bullets li strong{color:var(--accent3)}
+
+/* ===== PROJECTS ===== */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(480px,1fr));gap:2rem;margin-top:3rem}
+.project-card{padding:2rem;position:relative;overflow:hidden;cursor:default}
+.project-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,255,0.04),rgba(124,58,237,0.04));opacity:0;transition:opacity 0.4s}
+.project-card:hover::before{opacity:1}
+.project-num{font-family:var(--font-display);font-size:4rem;font-weight:800;color:rgba(255,255,255,0.03);position:absolute;top:1rem;right:1.5rem;line-height:1}
+.project-title{font-family:var(--font-display);font-size:1.2rem;font-weight:800;margin-bottom:0.5rem;line-height:1.3}
+.project-desc{font-size:0.82rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.7}
+.tech-badges{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.5rem}
+.badge{padding:0.2rem 0.6rem;border-radius:4px;font-size:0.65rem;font-weight:600;letter-spacing:0.05em;border:1px solid}
+.badge-blue{background:rgba(0,212,255,0.1);border-color:rgba(0,212,255,0.3);color:var(--accent)}
+.badge-purple{background:rgba(124,58,237,0.1);border-color:rgba(124,58,237,0.3);color:#a78bfa}
+.badge-green{background:rgba(6,255,165,0.1);border-color:rgba(6,255,165,0.3);color:var(--accent3)}
+.badge-orange{background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.3);color:var(--gold)}
+.project-highlights{list-style:none;margin-bottom:1.5rem}
+.project-highlights li{font-size:0.78rem;color:var(--muted);padding:0.3rem 0;display:flex;gap:0.5rem}
+.project-highlights li::before{content:'→';color:var(--accent2);flex-shrink:0}
+.project-actions{display:flex;gap:0.75rem}
+
+/* ===== CERTIFICATIONS ===== */
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;margin-top:3rem}
+.cert-card{padding:1.5rem;display:flex;gap:1rem;align-items:flex-start}
+.cert-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.cert-icon.databricks{background:linear-gradient(135deg,#ff3621,#ff6b3d)}
+.cert-icon.dsa{background:linear-gradient(135deg,#06ffa5,#00d4ff)}
+.cert-icon.cisco{background:linear-gradient(135deg,#1ba0d7,#005073)}
+.cert-body h4{font-family:var(--font-display);font-size:0.95rem;font-weight:700;margin-bottom:0.3rem}
+.cert-body p{font-size:0.75rem;color:var(--muted)}
+.cert-body .cert-badge{margin-top:0.5rem;display:inline-block;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);color:var(--gold);font-size:0.65rem;padding:0.15rem 0.5rem;border-radius:4px;letter-spacing:0.05em}
+
+/* ===== ACHIEVEMENTS ===== */
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem;margin-top:3rem}
+.ach-card{padding:1.5rem;text-align:center}
+.ach-icon{font-size:2rem;margin-bottom:0.75rem}
+.ach-value{font-family:var(--font-display);font-size:1.6rem;font-weight:800;background:linear-gradient(135deg,var(--gold),#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.3rem}
+.ach-label{font-size:0.78rem;color:var(--muted);line-height:1.5}
+
+/* ===== RESUME ===== */
+#resume{background:linear-gradient(180deg,var(--bg2),var(--bg))}
+.resume-card{padding:3rem;text-align:center;position:relative;overflow:hidden}
+.resume-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(0,212,255,0.06),transparent 70%)}
+.resume-card h3{font-family:var(--font-display);font-size:2rem;font-weight:800;margin-bottom:1rem}
+.resume-card p{color:var(--muted);margin-bottom:2rem;font-size:0.9rem}
+
+/* ===== CONTACT ===== */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem}
+.contact-info{display:flex;flex-direction:column;gap:1rem}
+.contact-item{display:flex;align-items:center;gap:1rem;padding:1rem;border-radius:10px;background:var(--surface);border:1px solid var(--border);text-decoration:none;color:var(--text);transition:all 0.3s}
+.contact-item:hover{border-color:var(--accent);transform:translateX(4px)}
+.contact-item i{width:36px;height:36px;background:rgba(0,212,255,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0}
+.contact-item-text span{font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;display:block}
+.contact-item-text strong{font-size:0.85rem}
+.contact-form{display:flex;flex-direction:column;gap:1rem}
+.form-group input,.form-group textarea{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.8rem 1rem;color:var(--text);font-family:var(--font-mono);font-size:0.82rem;outline:none;transition:border-color 0.3s;resize:none}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{height:120px}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--muted)}
+
+/* ===== FOOTER ===== */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem;text-align:center}
+.footer-socials{display:flex;justify-content:center;gap:1rem;margin-bottom:1rem}
+.footer-socials a{width:38px;height:38px;background:var(--surface);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;transition:all 0.3s}
+.footer-socials a:hover{border-color:var(--accent);color:var(--accent)}
+.footer-copy{font-size:0.72rem;color:var(--muted)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+@keyframes scrollAnim{0%{opacity:0;transform:scaleY(0);transform-origin:top}50%{opacity:1;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1);transform-origin:bottom}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* MOBILE NAV */
+@media(max-width:768px){
+  .nav-links{display:none;position:fixed;inset:0;top:60px;background:var(--bg);flex-direction:column;align-items:center;justify-content:center;gap:2rem;z-index:999}
+  .nav-links.open{display:flex}
+  .hamburger{display:flex}
+  #about .about-grid{grid-template-columns:1fr}
+  .projects-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .hero-stats{gap:1.5rem}
+  section{padding:4rem 1.25rem}
+}
+
+/* ===== AI/ML SECTION ===== */
+#aiml{background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%)}
+.aiml-intro{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:4rem;align-items:center}
+.aiml-intro-text p{color:var(--muted);font-size:0.88rem;line-height:1.9;margin-bottom:1rem}
+.learning-ticker{background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.25);border-radius:12px;padding:1.2rem 1.5rem;overflow:hidden;position:relative}
+.ticker-label{font-size:0.65rem;color:var(--accent2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.5rem}
+.ticker-label::before{content:'';width:6px;height:6px;background:var(--accent3);border-radius:50%;animation:pulse 1.5s infinite}
+.ticker-items{display:flex;flex-direction:column;gap:0.5rem}
+.ticker-item{display:flex;align-items:center;gap:0.75rem;font-size:0.8rem;color:var(--text)}
+.ticker-item i{color:var(--accent2);width:16px;text-align:center}
+.ticker-item .tpct{margin-left:auto;font-size:0.65rem;color:var(--accent3);background:rgba(6,255,165,0.1);padding:0.1rem 0.4rem;border-radius:4px}
+
+.aiml-tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;margin-bottom:3rem}
+.aiml-tool-card{padding:1.25rem;display:flex;gap:1rem;align-items:flex-start;position:relative;overflow:hidden}
+.aiml-tool-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:2px 2px 0 0}
+.aiml-tool-card.proficient::before{background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.aiml-tool-card.learning::before{background:linear-gradient(90deg,var(--accent2),var(--accent3))}
+.aiml-tool-card.exploring::before{background:linear-gradient(90deg,var(--accent3),#00c48a)}
+.tool-emoji{font-size:1.6rem;flex-shrink:0;line-height:1}
+.tool-info h4{font-family:var(--font-display);font-size:0.9rem;font-weight:700;margin-bottom:0.2rem}
+.tool-info p{font-size:0.75rem;color:var(--muted);line-height:1.5}
+.tool-tag{display:inline-block;margin-top:0.4rem;font-size:0.6rem;padding:0.15rem 0.5rem;border-radius:4px;letter-spacing:0.08em;font-weight:600}
+.tag-proficient{background:rgba(0,212,255,0.1);color:var(--accent);border:1px solid rgba(0,212,255,0.2)}
+.tag-learning{background:rgba(124,58,237,0.1);color:#a78bfa;border:1px solid rgba(124,58,237,0.2)}
+.tag-exploring{background:rgba(6,255,165,0.1);color:var(--accent3);border:1px solid rgba(6,255,165,0.2)}
+
+.aiml-roadmap{margin-top:3rem}
+.roadmap-title{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:1.5rem;color:var(--muted)}
+.roadmap-track{display:flex;flex-direction:column;gap:0;position:relative}
+.roadmap-track::before{content:'';position:absolute;left:16px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--accent),var(--accent2),var(--accent3),rgba(255,255,255,0.05))}
+.roadmap-item{display:flex;gap:1.5rem;padding-bottom:2rem;position:relative}
+.roadmap-dot{width:33px;height:33px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0;position:relative;z-index:1;border:2px solid}
+.roadmap-dot.done{background:rgba(0,212,255,0.15);border-color:var(--accent);color:var(--accent)}
+.roadmap-dot.active{background:rgba(124,58,237,0.2);border-color:var(--accent2);color:#a78bfa;box-shadow:0 0 15px rgba(124,58,237,0.4);animation:pulse 2s infinite}
+.roadmap-dot.next{background:rgba(6,255,165,0.08);border-color:rgba(6,255,165,0.3);color:var(--accent3)}
+.roadmap-dot.future{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.1);color:var(--muted)}
+.roadmap-content h4{font-family:var(--font-display);font-size:0.95rem;font-weight:700;margin-bottom:0.3rem}
+.roadmap-content p{font-size:0.78rem;color:var(--muted);line-height:1.6}
+.roadmap-status{display:inline-block;font-size:0.6rem;padding:0.15rem 0.5rem;border-radius:20px;margin-top:0.3rem;letter-spacing:0.08em;font-weight:600}
+.status-done{background:rgba(0,212,255,0.1);color:var(--accent)}
+.status-active{background:rgba(124,58,237,0.15);color:#a78bfa}
+.status-next{background:rgba(6,255,165,0.1);color:var(--accent3)}
+.status-future{background:rgba(255,255,255,0.05);color:var(--muted)}
+
+.aiml-intersection{padding:2rem;margin-top:3rem;background:linear-gradient(135deg,rgba(0,212,255,0.05),rgba(124,58,237,0.08));border:1px solid rgba(124,58,237,0.2);border-radius:16px}
+.aiml-intersection h3{font-family:var(--font-display);font-size:1.2rem;font-weight:800;margin-bottom:0.75rem}
+.aiml-intersection p{font-size:0.85rem;color:var(--muted);line-height:1.8;margin-bottom:1rem}
+.intersection-tags{display:flex;flex-wrap:wrap;gap:0.5rem}
+.itag{padding:0.3rem 0.8rem;border-radius:6px;font-size:0.72rem;font-weight:600;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);color:#c4b5fd}
+
+@media(max-width:768px){.aiml-intro{grid-template-columns:1fr}}
+
+/* DIVIDER */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0 auto;max-width:800px}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">PG.</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#aiml">AI / ML</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><span class="nav-badge">Open to Work</span></li>
+  </ul>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="container hero-content">
+    <div class="hero-tag"><span class="dot"></span>Available for Internship Opportunities</div>
+    <h1 class="hero-name"><span class="gradient-text">Priyadarshi</span><br>Gupta</h1>
+    <p class="hero-title">Aspiring Data Engineer · ML Engineer in Progress · Databricks Certified</p>
+    <p class="hero-bio">Results-driven CS undergraduate building scalable ETL/ELT pipelines, cloud data workflows, and real-time streaming systems using Spark, Snowflake, Databricks, AWS, and GCP — while continuously expanding into Machine Learning, MLOps, and AI-powered data systems.</p>
+    <div class="hero-btns">
+      <a href="#resume" class="btn btn-primary"><i class="fas fa-file-alt"></i> View Resume</a>
+      <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> Contact Me</a>
+      <a href="https://github.com/Priyadarshi70" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i> GitHub</a>
+      <a href="https://linkedin.com/in/priyadarshi-gupta-aa7657281" target="_blank" class="btn btn-outline"><i class="fab fa-linkedin"></i> LinkedIn</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">10M+</div><div class="stat-label">Records / Day</div></div>
+      <div class="stat"><div class="stat-num">40%</div><div class="stat-label">Latency Cut</div></div>
+      <div class="stat"><div class="stat-num">35%</div><div class="stat-label">Query Boost</div></div>
+      <div class="stat"><div class="stat-num">1606</div><div class="stat-label">LeetCode Rating</div></div>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="otw-banner reveal">
+      <div class="otw-dot"></div>
+      <div class="otw-text"><strong>Open to Internship Opportunities</strong> · Data Engineering · Big Data · Cloud · Analytics Engineering · Remote or Hybrid</div>
+    </div>
+    <div class="section-label">01 — About</div>
+    <h2 class="section-title">The Engineer<br><span class="gradient-text">Behind the Data</span></h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm a Computer Science undergraduate at Gaya College of Engineering with a deep passion for building scalable, reliable data infrastructure that powers intelligent decision-making.</p>
+        <p>My expertise spans the full modern data stack — from ingesting raw events with Apache Kafka, orchestrating complex workflows with Airflow, to transforming petabytes with PySpark and storing them efficiently in Snowflake and Delta Lake on Databricks.</p>
+        <p>I believe great data engineering is invisible: data just flows, transforms, and arrives — fast, clean, and trusted. I'm driven by the challenge of building that invisible infrastructure at scale.</p>
+        <p>When I'm not architecting pipelines, I compete on LeetCode, contribute to open-source, and play chess.</p>
+      </div>
+      <div class="edu-timeline reveal">
+        <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:1.5rem;color:var(--muted)">Education</h3>
+        <div class="edu-card glass">
+          <div class="edu-year">2023 – 2027</div>
+          <div class="edu-degree">B.Tech in Computer Science &amp; Engineering</div>
+          <div class="edu-school">Gaya College of Engineering · Bihar, India</div>
+        </div>
+        <div class="edu-card glass">
+          <div class="edu-year">Higher Secondary</div>
+          <div class="edu-degree">Science Stream</div>
+          <div class="edu-school">Govt. Senior Secondary School, Deha (Balson)</div>
+        </div>
+        <div style="margin-top:1.5rem;padding:1rem;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:10px">
+          <div style="font-size:0.7rem;color:var(--gold);letter-spacing:0.1em;margin-bottom:0.3rem">🏆 JEE MAIN 2023</div>
+          <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:800;color:var(--gold)">AIR 32,474</div>
+          <div style="font-size:0.75rem;color:var(--muted)">Among 1.1 Million+ Candidates</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">02 — Skills</div>
+    <h2 class="section-title">Technical<br><span class="gradient-text2">Expertise</span></h2>
+    <div class="skills-grid">
+
+      <div class="skill-category glass reveal" data-delay="0">
+        <div class="skill-cat-title"><span class="skill-cat-icon"><i class="fas fa-code"></i></span>Programming</div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Python</span><span class="skill-pct">92%</span></div><div class="skill-bar"><div class="skill-fill" data-w="92"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">SQL</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Java</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" data-w="75"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">C</span><span class="skill-pct">78%</span></div><div class="skill-bar"><div class="skill-fill" data-w="78"></div></div></div>
+      </div>
+
+      <div class="skill-category glass reveal" data-delay="100">
+        <div class="skill-cat-title"><span class="skill-cat-icon" style="background:rgba(124,58,237,0.15)"><i class="fas fa-database"></i></span>Data Engineering &amp; Big Data</div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Apache Spark / PySpark</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" data-w="88"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Apache Kafka</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" data-w="80"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Apache Airflow</span><span class="skill-pct">82%</span></div><div class="skill-bar"><div class="skill-fill" data-w="82"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Databricks / Delta Lake</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">ETL / ELT Pipelines</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></div>
+      </div>
+
+      <div class="skill-category glass reveal" data-delay="200">
+        <div class="skill-cat-title"><span class="skill-cat-icon" style="background:rgba(6,255,165,0.1)"><i class="fas fa-cloud"></i></span>Cloud &amp; Warehousing</div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Snowflake</span><span class="skill-pct">86%</span></div><div class="skill-bar"><div class="skill-fill" data-w="86"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">AWS (S3, Glue, Lambda)</span><span class="skill-pct">78%</span></div><div class="skill-bar"><div class="skill-fill" data-w="78"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">GCP / BigQuery</span><span class="skill-pct">72%</span></div><div class="skill-bar"><div class="skill-fill" data-w="72"></div></div></div>
+      </div>
+
+      <div class="skill-category glass reveal" data-delay="300">
+        <div class="skill-cat-title"><span class="skill-cat-icon" style="background:rgba(245,158,11,0.1)"><i class="fas fa-tools"></i></span>DevOps &amp; Tools</div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Docker</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" data-w="80"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">GitHub / GitHub Actions</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Linux</span><span class="skill-pct">78%</span></div><div class="skill-bar"><div class="skill-fill" data-w="78"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Jenkins</span><span class="skill-pct">65%</span></div><div class="skill-bar"><div class="skill-fill" data-w="65"></div></div></div>
+      </div>
+
+      <div class="skill-category glass reveal" data-delay="400">
+        <div class="skill-cat-title"><span class="skill-cat-icon" style="background:rgba(0,212,255,0.1)"><i class="fas fa-server"></i></span>Databases</div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">PostgreSQL</span><span class="skill-pct">84%</span></div><div class="skill-bar"><div class="skill-fill" data-w="84"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">MySQL</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" data-w="80"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Delta Lake</span><span class="skill-pct">82%</span></div><div class="skill-bar"><div class="skill-fill" data-w="82"></div></div></div>
+      </div>
+
+      <div class="skill-category glass reveal" data-delay="500">
+        <div class="skill-cat-title"><span class="skill-cat-icon" style="background:rgba(124,58,237,0.15)"><i class="fas fa-brain"></i></span>AI / Machine Learning</div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Scikit-learn</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" data-w="75"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Pandas / NumPy</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">MLflow (Tracking & Registry)</span><span class="skill-pct">65%</span></div><div class="skill-bar"><div class="skill-fill" data-w="65"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Feature Engineering</span><span class="skill-pct">72%</span></div><div class="skill-bar"><div class="skill-fill" data-w="72"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">TensorFlow / Keras <span style="color:var(--accent3);font-size:0.6rem">Learning</span></span><span class="skill-pct">45%</span></div><div class="skill-bar"><div class="skill-fill" data-w="45" style="background:linear-gradient(90deg,var(--accent2),var(--accent3))"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">LLM APIs / Prompt Eng. <span style="color:var(--accent3);font-size:0.6rem">Learning</span></span><span class="skill-pct">50%</span></div><div class="skill-bar"><div class="skill-fill" data-w="50" style="background:linear-gradient(90deg,var(--accent2),var(--accent3))"></div></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">03 — Experience</div>
+    <h2 class="section-title">Where I've<br><span class="gradient-text">Built Things</span></h2>
+    <div style="margin-top:3rem">
+      <div class="exp-card glass reveal">
+        <div class="exp-header">
+          <div>
+            <div class="exp-role">Data Engineer Intern</div>
+            <div class="exp-company">Celebal Technologies · Jaipur, India</div>
+          </div>
+          <div class="exp-meta">
+            <div class="exp-duration">May 2025 – Aug 2025</div>
+            <div class="exp-location"><i class="fas fa-map-marker-alt" style="margin-right:4px"></i>Jaipur, Rajasthan</div>
+          </div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Designed enterprise-scale ETL/ELT workflows using <strong>Apache Spark</strong> and <strong>Snowflake</strong>, processing <strong>10M+ records daily</strong> with high reliability and schema enforcement.</li>
+          <li>Integrated <strong>Apache Kafka</strong> for real-time event streaming, reducing pipeline end-to-end latency by <strong>40%</strong> across downstream analytics systems.</li>
+          <li>Optimized <strong>Snowflake</strong> data warehouse schemas, partitioning strategies, and query patterns, achieving <strong>35% improvement</strong> in analytical query performance.</li>
+          <li>Leveraged <strong>Databricks Delta Lake</strong> to unify batch and streaming data processing, enabling ACID transactions and time-travel queries on large datasets.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">04 — Projects</div>
+    <h2 class="section-title">What I've<br><span class="gradient-text2">Engineered</span></h2>
+    <p style="color:var(--muted);font-size:0.85rem;margin-bottom:0.5rem">All projects are live on <a href="https://github.com/Priyadarshi70" target="_blank" style="color:var(--accent);text-decoration:none">github.com/Priyadarshi70</a></p>
+    <div class="projects-grid" style="grid-template-columns:repeat(auto-fill,minmax(440px,1fr))">
+
+      <!-- PROJECT 1 -->
+      <div class="project-card glass reveal">
+        <div class="project-num">01</div>
+        <div class="project-title">Airbnb Data Pipeline — Postgres to S3</div>
+        <div class="project-desc">End-to-end Airflow pipeline ingesting Amsterdam Airbnb listing data, cleaning and processing it with Pandas, loading it into PostgreSQL, and exporting to Amazon S3 via a custom Airflow operator.</div>
+        <div class="tech-badges">
+          <span class="badge badge-green">Apache Airflow</span>
+          <span class="badge badge-blue">Python</span>
+          <span class="badge badge-orange">AWS S3</span>
+          <span class="badge badge-blue">PostgreSQL</span>
+          <span class="badge badge-green">Pandas</span>
+        </div>
+        <ul class="project-highlights">
+          <li>Custom <strong>PostgresToS3Operator</strong> for reusable, extensible cloud export</li>
+          <li>Full schema management: drop &amp; recreate table on each run for consistency</li>
+          <li>Bulk loading via PostgreSQL <strong>COPY</strong> command for high-throughput ingestion</li>
+          <li>Daily schedule with catchup disabled — production-ready DAG design</li>
+          <li>Demonstrates real-world Airflow + cloud storage integration patterns</li>
+        </ul>
+        <div class="project-actions">
+          <a href="https://github.com/Priyadarshi70/Airbnb-Data-Pipeline-Postgres-to-S3-using-Apache-Airflow" target="_blank" class="btn btn-outline" style="font-size:0.75rem;padding:0.5rem 1rem"><i class="fab fa-github"></i> View on GitHub</a>
+        </div>
+      </div>
+
+      <!-- PROJECT 2 -->
+      <div class="project-card glass reveal">
+        <div class="project-num">02</div>
+        <div class="project-title">Crypto Exchange Pipeline — Airflow + GCP</div>
+        <div class="project-desc">Automated near-real-time cryptocurrency data pipeline using the CoinGecko API, Apache Airflow, and Google Cloud Storage — fetching, transforming, and storing market data every 10 minutes.</div>
+        <div class="tech-badges">
+          <span class="badge badge-green">Apache Airflow</span>
+          <span class="badge badge-blue">Python</span>
+          <span class="badge badge-green">GCP / GCS</span>
+          <span class="badge badge-orange">CoinGecko API</span>
+          <span class="badge badge-blue">Pandas</span>
+        </div>
+        <ul class="project-highlights">
+          <li>Runs every <strong>10 minutes</strong> — near real-time crypto market ingestion</li>
+          <li>Stores both raw JSON and transformed CSV to GCS with timestamp partitioning</li>
+          <li>Auto-creates GCS bucket if not present — fully self-provisioning pipeline</li>
+          <li>Captures: price, market cap, volume, symbol, and UTC timestamp per coin</li>
+          <li>Roadmap: BigQuery load + Spark transforms + Power BI dashboard</li>
+        </ul>
+        <div class="project-actions">
+          <a href="https://github.com/Priyadarshi70/Crypto-Exchange-Pipeline-using-Apache-Airflow-Google-Cloud" target="_blank" class="btn btn-outline" style="font-size:0.75rem;padding:0.5rem 1rem"><i class="fab fa-github"></i> View on GitHub</a>
+        </div>
+      </div>
+
+      <!-- PROJECT 3 -->
+      <div class="project-card glass reveal">
+        <div class="project-num">03</div>
+        <div class="project-title">Spotify ETL Pipeline — AWS Lambda &amp; Athena</div>
+        <div class="project-desc">Production-grade ETL pipeline extracting song, album, and artist data from Spotify playlists, transforming with Pandas, and loading to AWS S3 — automated end-to-end with Lambda triggers and Athena querying.</div>
+        <div class="tech-badges">
+          <span class="badge badge-blue">Python</span>
+          <span class="badge badge-orange">AWS S3</span>
+          <span class="badge badge-orange">AWS Lambda</span>
+          <span class="badge badge-orange">AWS Athena</span>
+          <span class="badge badge-blue">Spotipy</span>
+          <span class="badge badge-green">Pandas</span>
+        </div>
+        <ul class="project-highlights">
+          <li>Extracts tracks: name, artist, album, duration, release date via Spotify Web API</li>
+          <li><strong>AWS Lambda</strong> functions automate pipeline execution end-to-end</li>
+          <li>Data stored in S3 as CSV/Parquet, queryable via <strong>AWS Athena</strong> SQL</li>
+          <li>CloudWatch triggers for periodic execution without manual intervention</li>
+          <li>Roadmap: real-time streaming with Kinesis, QuickSight dashboard</li>
+        </ul>
+        <div class="project-actions">
+          <a href="https://github.com/Priyadarshi70/Data_Engeneering_Project--Spotify-ETL-Pipeline" target="_blank" class="btn btn-outline" style="font-size:0.75rem;padding:0.5rem 1rem"><i class="fab fa-github"></i> View on GitHub</a>
+        </div>
+      </div>
+
+      <!-- PROJECT 4 -->
+      <div class="project-card glass reveal">
+        <div class="project-num">04</div>
+        <div class="project-title">Apache Spark + Databricks — Data Engineering</div>
+        <div class="project-desc">Hands-on Databricks and Apache Spark notebooks covering core data engineering patterns: distributed data processing, Delta Lake operations, structured streaming, and Spark SQL analytics.</div>
+        <div class="tech-badges">
+          <span class="badge badge-purple">Databricks</span>
+          <span class="badge badge-purple">Apache Spark</span>
+          <span class="badge badge-green">Delta Lake</span>
+          <span class="badge badge-blue">PySpark</span>
+          <span class="badge badge-blue">Spark SQL</span>
+          <span class="badge badge-orange">Jupyter</span>
+        </div>
+        <ul class="project-highlights">
+          <li>Comprehensive Spark data engineering patterns in Databricks notebooks</li>
+          <li><strong>Delta Lake</strong> — ACID transactions, time travel, schema evolution</li>
+          <li>Structured Streaming for real-time data processing workflows</li>
+          <li>Spark SQL for large-scale analytical queries on distributed datasets</li>
+          <li>Reference implementations for batch + streaming unified architecture</li>
+        </ul>
+        <div class="project-actions">
+          <a href="https://github.com/Priyadarshi70/apache-spark-with-data-bricks-for-data-engineering" target="_blank" class="btn btn-outline" style="font-size:0.75rem;padding:0.5rem 1rem"><i class="fab fa-github"></i> View on GitHub</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- AI / ML -->
+<section id="aiml">
+  <div class="container">
+    <div class="section-label">05 — AI &amp; Machine Learning</div>
+    <h2 class="section-title">Bridging Data Engineering<br><span class="gradient-text">with Intelligence</span></h2>
+
+    <div class="aiml-intro">
+      <div class="aiml-intro-text reveal">
+        <p>Data Engineering and Machine Learning are converging. The best data engineers today don't just move data — they understand how it gets <em>used</em>. I'm actively building my ML skillset to become a well-rounded practitioner who can design data pipelines that feed production ML models, build feature stores, and deploy end-to-end intelligent systems.</p>
+        <p>My approach: learn by building. I apply ML concepts directly to my data engineering work — using MLflow for experiment tracking, engineering features with PySpark at scale, and exploring how LLMs can augment data workflows through intelligent automation.</p>
+        <p>I believe the future belongs to engineers who sit at the intersection of reliable data infrastructure and intelligent systems.</p>
+      </div>
+      <div class="learning-ticker reveal">
+        <div class="ticker-label">Currently Learning</div>
+        <div class="ticker-items">
+          <div class="ticker-item"><i class="fas fa-circle-notch fa-spin"></i> Deep Learning with TensorFlow &amp; Keras <span class="tpct">Active</span></div>
+          <div class="ticker-item"><i class="fas fa-circle-notch fa-spin"></i> LLM APIs &amp; Prompt Engineering <span class="tpct">Active</span></div>
+          <div class="ticker-item"><i class="fas fa-circle-notch fa-spin"></i> ML Feature Stores (Feast / Databricks) <span class="tpct">Active</span></div>
+          <div class="ticker-item"><i class="fas fa-circle-notch fa-spin"></i> Retrieval-Augmented Generation (RAG) <span class="tpct">Exploring</span></div>
+          <div class="ticker-item"><i class="fas fa-circle-notch fa-spin"></i> MLOps with MLflow + Databricks <span class="tpct">Active</span></div>
+          <div class="ticker-item"><i class="fas fa-circle-notch fa-spin"></i> NLP &amp; Text Processing Pipelines <span class="tpct">Exploring</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOOLS GRID -->
+    <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--muted);margin-bottom:1.5rem" class="reveal">Tools &amp; Frameworks</h3>
+    <div class="aiml-tools-grid">
+
+      <div class="aiml-tool-card glass proficient reveal">
+        <div class="tool-emoji">🐼</div>
+        <div class="tool-info">
+          <h4>Pandas &amp; NumPy</h4>
+          <p>Core data manipulation — cleaning, transforming, and analyzing structured datasets for both ML pipelines and EDA.</p>
+          <span class="tool-tag tag-proficient">Proficient</span>
+        </div>
+      </div>
+
+      <div class="aiml-tool-card glass proficient reveal">
+        <div class="tool-emoji">🤖</div>
+        <div class="tool-info">
+          <h4>Scikit-learn</h4>
+          <p>Classical ML models — regression, classification, clustering. Used for feature selection and baseline model building.</p>
+          <span class="tool-tag tag-proficient">Proficient</span>
+        </div>
+      </div>
+
+      <div class="aiml-tool-card glass proficient reveal">
+        <div class="tool-emoji">📊</div>
+        <div class="tool-info">
+          <h4>MLflow</h4>
+          <p>Experiment tracking, model registry, and run comparisons. Integrated with Databricks for full MLOps lifecycle management.</p>
+          <span class="tool-tag tag-proficient">Proficient</span>
+        </div>
+      </div>
+
+      <div class="aiml-tool-card glass proficient reveal">
+        <div class="tool-emoji">⚡</div>
+        <div class="tool-info">
+          <h4>Spark MLlib</h4>
+          <p>Distributed ML at scale using PySpark — training models on big data without sampling. Pipeline API for reproducible workflows.</p>
+          <span class="tool-tag tag-proficient">Proficient</span>
+        </div>
+      </div>
+
+      <div class="aiml-tool-card glass learning reveal">
+        <div class="tool-emoji">🧠</div>
+        <div class="tool-info">
+          <h4>TensorFlow &amp; Keras</h4>
+          <p>Building and training neural networks — CNNs, RNNs, and feedforward architectures for classification and regression tasks.</p>
+          <span class="tool-tag tag-learning">Learning</span>
+        </div>
+      </div>
+
+      <div class="aiml-tool-card glass learning reveal">
+        <div class="tool-emoji">🔗</div>
+        <div class="tool-info">
+          <h4>LLM APIs (OpenAI / Gemini)</h4>
+          <p>Integrating large language models into data workflows — intelligent data extraction, summarization, and pipeline automation via prompts.</p>
+          <span class="tool-tag tag-learning">Learning</span>
+        </div>
+      </div>
+
+      <div class="aiml-tool-card glass learning reveal">
+        <div class="tool-emoji">🏗️</div>
+        <div class="tool-info">
+          <h4>Feature Store (Feast / Databricks)</h4>
+          <p>Centralized feature management for ML — building reusable, versioned feature pipelines that bridge data engineering and model training.</p>
+          <span class="tool-tag tag-learning">Learning</span>
+        </div>
+      </div>
+
+      <div class="aiml-tool-card glass exploring reveal">
+        <div class="tool-emoji">🔍</div>
+        <div class="tool-info">
+          <h4>RAG &amp; Vector Databases</h4>
+          <p>Retrieval-Augmented Generation patterns — exploring Chroma, Pinecone, and pgvector for building context-aware AI applications.</p>
+          <span class="tool-tag tag-exploring">Exploring</span>
+        </div>
+      </div>
+
+      <div class="aiml-tool-card glass exploring reveal">
+        <div class="tool-emoji">📝</div>
+        <div class="tool-info">
+          <h4>NLP &amp; Text Pipelines</h4>
+          <p>Building text processing pipelines with spaCy and HuggingFace transformers — tokenization, embeddings, and named entity recognition.</p>
+          <span class="tool-tag tag-exploring">Exploring</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ROADMAP -->
+    <div class="aiml-roadmap reveal">
+      <div class="roadmap-title">📍 My AI/ML Learning Roadmap</div>
+      <div class="roadmap-track">
+        <div class="roadmap-item">
+          <div class="roadmap-dot done"><i class="fas fa-check"></i></div>
+          <div class="roadmap-content">
+            <h4>Classical ML Foundations</h4>
+            <p>Regression, classification, clustering, model evaluation, cross-validation, and feature engineering using Scikit-learn on real datasets.</p>
+            <span class="roadmap-status status-done">✓ Completed</span>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-dot done"><i class="fas fa-check"></i></div>
+          <div class="roadmap-content">
+            <h4>MLOps with MLflow + Databricks</h4>
+            <p>Experiment tracking, model versioning, and registry management — integrating ML lifecycle into data engineering workflows on Databricks.</p>
+            <span class="roadmap-status status-done">✓ Completed</span>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-dot active"><i class="fas fa-bolt"></i></div>
+          <div class="roadmap-content">
+            <h4>Deep Learning — Neural Networks</h4>
+            <p>Feedforward networks, CNNs, and sequence models using TensorFlow/Keras. Applying DL to structured and image data problems.</p>
+            <span class="roadmap-status status-active">⚡ In Progress</span>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-dot active"><i class="fas fa-bolt"></i></div>
+          <div class="roadmap-content">
+            <h4>LLM Integration &amp; Prompt Engineering</h4>
+            <p>Working with OpenAI &amp; Gemini APIs — building intelligent pipelines that leverage LLMs for data enrichment, extraction, and automation.</p>
+            <span class="roadmap-status status-active">⚡ In Progress</span>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-dot next"><i class="fas fa-arrow-right"></i></div>
+          <div class="roadmap-content">
+            <h4>RAG Systems &amp; Vector Search</h4>
+            <p>Building retrieval-augmented generation pipelines with vector databases (Chroma, Pinecone) and embedding models for semantic search.</p>
+            <span class="roadmap-status status-next">→ Up Next</span>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-dot future"><i class="fas fa-flag"></i></div>
+          <div class="roadmap-content">
+            <h4>End-to-End ML Platform Engineering</h4>
+            <p>Building production-grade ML platforms — feature stores, model serving, online inference APIs, and A/B testing infrastructure.</p>
+            <span class="roadmap-status status-future">◌ Planned</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTERSECTION CARD -->
+    <div class="aiml-intersection reveal">
+      <h3>🔀 Data Engineering <span class="gradient-text">×</span> Machine Learning</h3>
+      <p>My goal is to operate at the intersection of reliable data infrastructure and intelligent systems — a profile increasingly called <strong style="color:var(--accent)">ML Engineer</strong> or <strong style="color:var(--accent)">AI Data Engineer</strong>. This means building pipelines that don't just move data, but prepare it intelligently for model consumption: feature pipelines, training data versioning, online/offline feature serving, and monitoring data drift in production.</p>
+      <div class="intersection-tags">
+        <span class="itag">Feature Engineering at Scale</span>
+        <span class="itag">MLflow Model Registry</span>
+        <span class="itag">Training Data Pipelines</span>
+        <span class="itag">Databricks AutoML</span>
+        <span class="itag">Data-Centric AI</span>
+        <span class="itag">Model Monitoring</span>
+        <span class="itag">LLM-augmented ETL</span>
+        <span class="itag">Vector Databases</span>
+        <span class="itag">RAG Pipelines</span>
+        <span class="itag">Spark MLlib</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="container">
+    <div class="section-label">06 — Certifications</div>
+    <h2 class="section-title">Credentials &amp;<br><span class="gradient-text">Recognition</span></h2>
+    <div class="certs-grid">
+      <div class="cert-card glass reveal">
+        <div class="cert-icon databricks">🔥</div>
+        <div class="cert-body">
+          <h4>Databricks Certified Associate Data Engineer</h4>
+          <p>Official Databricks certification validating proficiency in Delta Lake, Spark, and Databricks platform.</p>
+          <span class="cert-badge">✓ CERTIFIED</span>
+        </div>
+      </div>
+      <div class="cert-card glass reveal">
+        <div class="cert-icon dsa">⚡</div>
+        <div class="cert-body">
+          <h4>Data Structures &amp; Algorithms</h4>
+          <p>Parakh Certification Program — comprehensive DSA training covering arrays, graphs, DP, and system design.</p>
+          <span class="cert-badge">✓ CERTIFIED</span>
+        </div>
+      </div>
+      <div class="cert-card glass reveal">
+        <div class="cert-icon cisco">🌐</div>
+        <div class="cert-body">
+          <h4>CLA: Programming Essentials in C</h4>
+          <p>Cisco Networking Academy certification covering C programming fundamentals and memory management.</p>
+          <span class="cert-badge">✓ CERTIFIED</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="container">
+    <div class="section-label">07 — Achievements</div>
+    <h2 class="section-title">Milestones &amp;<br><span class="gradient-text2">Beyond</span></h2>
+    <div class="ach-grid">
+      <div class="ach-card glass reveal">
+        <div class="ach-icon">🏆</div>
+        <div class="ach-value">AIR 32,474</div>
+        <div class="ach-label">JEE Main 2023<br>Among 1.1M+ Candidates</div>
+      </div>
+      <div class="ach-card glass reveal">
+        <div class="ach-icon">⚡</div>
+        <div class="ach-value">1606</div>
+        <div class="ach-label">LeetCode Max Rating<br>Competitive Programming</div>
+      </div>
+      <div class="ach-card glass reveal">
+        <div class="ach-icon">🔥</div>
+        <div class="ach-value">100 Days</div>
+        <div class="ach-label">LeetCode Coding Streak<br>+ 50-Day Badge</div>
+      </div>
+      <div class="ach-card glass reveal">
+        <div class="ach-icon">🌍</div>
+        <div class="ach-value">Open Source</div>
+        <div class="ach-label">Active GitHub Contributor<br>Public Projects &amp; PRs</div>
+      </div>
+      <div class="ach-card glass reveal">
+        <div class="ach-icon">♟️</div>
+        <div class="ach-value">Chess</div>
+        <div class="ach-label">Strategic Thinker<br>Chess Enthusiast</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RESUME -->
+<section id="resume">
+  <div class="container">
+    <div class="section-label">08 — Resume</div>
+    <div class="resume-card glass reveal">
+      <div style="font-size:3rem;margin-bottom:1rem">📄</div>
+      <h3>Priyadarshi Gupta</h3>
+      <p>Data Engineer Intern · Databricks Certified · PySpark · Snowflake · Airflow · AWS · GCP</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+        <a href="mailto:Priyadarshigupta6@gmail.com" class="btn btn-primary"><i class="fas fa-download"></i> Request Resume</a>
+        <a href="https://linkedin.com/in/priyadarshi-gupta-aa7657281" target="_blank" class="btn btn-outline"><i class="fab fa-linkedin"></i> LinkedIn Profile</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">09 — Contact</div>
+    <h2 class="section-title">Let's Build<br><span class="gradient-text">Something</span></h2>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <a href="tel:+917018856246" class="contact-item">
+          <i class="fas fa-phone"></i>
+          <div class="contact-item-text"><span>Phone</span><strong>+91 7018856246</strong></div>
+        </a>
+        <a href="mailto:Priyadarshigupta6@gmail.com" class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <div class="contact-item-text"><span>Email</span><strong>Priyadarshigupta6@gmail.com</strong></div>
+        </a>
+        <a href="https://linkedin.com/in/priyadarshi-gupta-aa7657281" target="_blank" class="contact-item">
+          <i class="fab fa-linkedin"></i>
+          <div class="contact-item-text"><span>LinkedIn</span><strong>priyadarshi-gupta-aa7657281</strong></div>
+        </a>
+        <a href="https://github.com/Priyadarshi70" target="_blank" class="contact-item">
+          <i class="fab fa-github"></i>
+          <div class="contact-item-text"><span>GitHub</span><strong>Priyadarshi70</strong></div>
+        </a>
+        <a href="https://leetcode.com/u/Priyadarshi_gupta90" target="_blank" class="contact-item">
+          <i class="fas fa-code"></i>
+          <div class="contact-item-text"><span>LeetCode</span><strong>Priyadarshi_gupta90</strong></div>
+        </a>
+      </div>
+      <div class="contact-form reveal">
+        <div class="form-group"><input type="text" placeholder="Your Name" id="cf-name"/></div>
+        <div class="form-group"><input type="email" placeholder="Your Email" id="cf-email"/></div>
+        <div class="form-group"><textarea placeholder="Your Message" id="cf-msg"></textarea></div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="sendMsg()"><i class="fas fa-paper-plane"></i> Send Message</button>
+        <div id="cf-feedback" style="margin-top:0.75rem;font-size:0.8rem;text-align:center;color:var(--accent3);display:none">✓ Message noted! I'll reach out via email.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-socials">
+    <a href="https://github.com/Priyadarshi70" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="https://linkedin.com/in/priyadarshi-gupta-aa7657281" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="mailto:Priyadarshigupta6@gmail.com"><i class="fas fa-envelope"></i></a>
+    <a href="https://leetcode.com/u/Priyadarshi_gupta90" target="_blank"><i class="fas fa-code"></i></a>
+  </div>
+  <div class="footer-copy">© 2025 Priyadarshi Gupta · Built for Data Engineering Opportunities · Open to Work 🚀</div>
+</footer>
+
+<script>
+// ── SCROLL PROGRESS ──
+window.addEventListener('scroll',()=>{
+  const pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+  document.getElementById('progress-bar').style.width=pct+'%';
+});
+
+// ── HAMBURGER ──
+const ham=document.getElementById('hamburger');
+const nav=document.getElementById('navLinks');
+ham.addEventListener('click',()=>{nav.classList.toggle('open')});
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+
+// ── ACTIVE NAV ──
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(l=>l.classList.remove('active'));
+      const active=document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if(active)active.classList.add('active');
+    }
+  });
+},{threshold:0.4});
+sections.forEach(s=>observer.observe(s));
+
+// ── REVEAL ON SCROLL ──
+const reveals=document.querySelectorAll('.reveal');
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      const delay=e.target.dataset.delay||0;
+      setTimeout(()=>e.target.classList.add('visible'),parseInt(delay));
+      revObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.1});
+reveals.forEach(r=>revObs.observe(r));
+
+// ── SKILL BARS ──
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.skill-fill').forEach(b=>{
+        setTimeout(()=>{b.style.width=b.dataset.w+'%'},200);
+      });
+      barObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.2});
+document.querySelectorAll('.skill-category').forEach(c=>barObs.observe(c));
+
+// ── CONTACT FORM ──
+function sendMsg(){
+  const n=document.getElementById('cf-name').value;
+  const e=document.getElementById('cf-email').value;
+  const m=document.getElementById('cf-msg').value;
+  if(!n||!e||!m){alert('Please fill all fields.');return;}
+  const fb=document.getElementById('cf-feedback');
+  fb.style.display='block';
+  document.getElementById('cf-name').value='';
+  document.getElementById('cf-email').value='';
+  document.getElementById('cf-msg').value='';
+}
+
+// ── HERO CANVAS ──
+const canvas=document.getElementById('hero-canvas');
+const ctx=canvas.getContext('2d');
+let W,H,nodes=[];
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+class Node{
+  constructor(){this.reset();}
+  reset(){
+    this.x=Math.random()*W;
+    this.y=Math.random()*H;
+    this.vx=(Math.random()-0.5)*0.4;
+    this.vy=(Math.random()-0.5)*0.4;
+    this.r=Math.random()*2+1;
+    this.life=Math.random();
+  }
+  update(){
+    this.x+=this.vx;this.y+=this.vy;
+    if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset();
+  }
+}
+for(let i=0;i<80;i++)nodes.push(new Node());
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  nodes.forEach(n=>n.update());
+  nodes.forEach((a,i)=>{
+    ctx.beginPath();
+    ctx.arc(a.x,a.y,a.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(0,212,255,0.6)';
+    ctx.fill();
+    for(let j=i+1;j<nodes.length;j++){
+      const b=nodes[j];
+      const dx=a.x-b.x,dy=a.y-b.y;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<120){
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+        ctx.strokeStyle=`rgba(0,212,255,${(1-dist/120)*0.15})`;
+        ctx.lineWidth=0.5;
+        ctx.stroke();
+      }
+    }
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>
